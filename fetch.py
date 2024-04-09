@@ -11,6 +11,9 @@ class Fetch:
         self.response = requests.get(self.url, headers=self.headers)
         return self.response
 
+    def update_url(self, url):
+        self.url = url
+
     def set_token(self, token):
         """set Bearer token to headers"""
         self.headers["Authorization"] = f"Bearer {token}"
@@ -20,5 +23,6 @@ class Fetch:
         try:
             response.raise_for_status()
             return True
-        except requests.exceptions.RequestException as e:
-            raise Exception(f"Error fetching data: {e}")
+        except requests.exceptions.RequestException as error:
+            print(f"RequestException: {error}")
+            return False
